@@ -5,13 +5,13 @@ var app = express();
 
 app.get('/*', async (req, res) => {
   let requestPath = req.originalUrl // => e.g. /hospitals
-  console.log(`:: GET ${request}`) // => :: GET ${/hospitals}
+  console.log(`:: GET ${requestPath}`) // => :: GET ${/hospitals}
 
   let attemptsLeft = 3;
   let upstreamResponse; // -> response from HOSP Server
 
   while (attemptsLeft > 0) {
-    let upstream = `http://${TARGET_SERVER}${request}`;
+    let upstream = `http://${TARGET_SERVER}${requestPath}`;
 		// e.g. http://ec2-url/hospitals
 
     console.log(`:: Attempt ${3 - attemptsLeft}: ${upstream}`)
@@ -42,6 +42,10 @@ app.get('/*', async (req, res) => {
       return
     }
   }
-  console.log(`:: Failed GET ${request}`)
+  console.log(`:: Failed GET ${requestPath}`)
   res.status(upstreamResponse.status).send(await upstreamResponse.text())
 })
+
+app.listen('80', function () {
+  console.log('Listening on port 80!');
+});
