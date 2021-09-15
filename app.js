@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 import express from 'express';
 const TARGET_SERVER = "team-1-reliability-server.mkrs.link"
 var app = express();
-const body = {a: 1};
+// const body = {a: 1};
 
 
 app.get('/*', async (req, res) => {
