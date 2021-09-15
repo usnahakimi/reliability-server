@@ -66,15 +66,14 @@ app.post('/*', async (req, res) => {
 
     upstreamResponse = await fetch(upstream, {
       method: 'post',
-      body: JSON.stringify(body),
+      body: JSON.stringify(req.body),
       headers: {
         'Content-Type': 'application/json',
     
         'Authorization': req.header('Authorization')                          
     }
     });
-
-    console.log(body)
+   
 // Perform GET request against http://ec2-url/hospitals, with authentication credentials needed (as per the HOSP API documentation)
 
     if (upstreamResponse.ok) {
