@@ -1,28 +1,47 @@
-const express = require('express');
-const app = express();
-// const https = require('https');
-const http = require('http');
+import fetch from 'node-fetch';
+import express from 'express';
+const TARGET_SERVER = "http://team-1-reliability-server.mkrs.link"
+var app = express();
 
-const url = 'http://team-1-reliability-server.mkrs.link';
+app.get('/*', async (req, res) => {
+  let requestPath = req.originalUrl // => e.g. /hospitals
+  console.log(`:: GET ${request}`) // => :: GET ${/hospitals}
 
-app.get('/', function (req, res) {
-http.get(url, function(res) {
-  console.log('Status code: ', res.statusCode);
-  
-  if(res.statusCode !== 200) {
-    var times = 3;
-    for(var i=0; i < times; i++){
-      console.log('Something here');
-      http.get(url);
+  let attemptsLeft = 3;
+  let upstreamResponse; // -> response from HOSP Server
+
+  while (attemptsLeft > 0) {
+    let upstream = `http://${TARGET_SERVER}${request}`;
+		// e.g. http://ec2-url/hospitals
+
+    console.log(`:: Attempt ${3 - attemptsLeft}: ${upstream}`)
+
+    attemptsLeft = attemptsLeft - 1
+
+    upstreamResponse = await fetch(upstream, {
+      headers: { 
+				'Authorization': req.header('Authorization')
+		 }
+    })
+// Perform GET request against http://ec2-url/hospitals, with authentication credentials needed (as per the HOSP API documentation)
+
+    if (upstreamResponse.ok) {
+      let text = await upstreamResponse.text()
+      res.header('Content-Type', upstreamResponse.headers.get('content-type'))
+         .status(upstreamResponse.status) // -> 200
+         .send(text) /*
+{
+  "id": 1,
+  "name": "Jimbo Hospital",
+  "created_at": "2021-03-06T15:46:28.245Z",
+  "updated_at": "2021-03-06T15:46:28.245Z",
+  "url": "http://localhost:3000/hospitals/1.json"
+}
+					*/
+      console.log(":: Successful!")
+      return
     }
   }
-
-}).on('error', function(e) {
-  console.error(e);
-});
-res.send('Team 1');
-});
-
-app.listen(80, function () {
-  console.log('Listening on port 80!');
-});
+  console.log(`:: Failed GET ${request}`)
+  res.status(upstreamResponse.status).send(await upstreamResponse.text())
+})
