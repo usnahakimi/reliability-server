@@ -2,6 +2,7 @@ import fetch from 'node-fetch';
 import express from 'express';
 const TARGET_SERVER = "team-1-reliability-server.mkrs.link"
 var app = express();
+// var body = '';
 
 
 app.get('/*', async (req, res) => {
@@ -50,7 +51,8 @@ app.get('/*', async (req, res) => {
 app.post('/*', async (req, res) => {
   let requestPath = req.originalUrl // => e.g. /hospitals
   console.log(`:: POST ${requestPath}`) // => :: GET ${/hospitals}
-  console.log(upstreamResponse)
+  console.log(res.body)
+  console.log(req.body)
 
   let attemptsLeft = 3;
   let upstreamResponse; // -> response from HOSP Server
@@ -65,7 +67,7 @@ app.post('/*', async (req, res) => {
 
     upstreamResponse = await fetch(upstream, {
       method: 'post',
-      body: JSON.stringify(upstreamResponse),
+      // body: JSON.stringify(body),
       headers: {
         // 'Content-Type': 'application/json',
     
