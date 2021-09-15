@@ -46,7 +46,7 @@ app.get('/*', async (req, res) => {
   res.status(upstreamResponse.status).send(await upstreamResponse.text())
 })
 
-app.get('/*', async (req, res) => {
+app.post('/*', async (req, res) => {
   let requestPath = req.originalUrl // => e.g. /hospitals
   console.log(`:: POST ${requestPath}`) // => :: GET ${/hospitals}
 
