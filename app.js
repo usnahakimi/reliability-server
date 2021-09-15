@@ -51,8 +51,7 @@ app.get('/*', async (req, res) => {
 app.post('/*', async (req, res) => {
   let requestPath = req.originalUrl // => e.g. /hospitals
   console.log(`:: POST ${requestPath}`) // => :: GET ${/hospitals}
-  console.log(res.body)
-  console.log(req.body)
+
 
   let attemptsLeft = 3;
   let upstreamResponse; // -> response from HOSP Server
@@ -74,6 +73,7 @@ app.post('/*', async (req, res) => {
         'Authorization': req.header('Authorization')                          
     }
     })
+    console.log(upstreamResponse)
 // Perform GET request against http://ec2-url/hospitals, with authentication credentials needed (as per the HOSP API documentation)
 
     if (upstreamResponse.ok) {
