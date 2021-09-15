@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 import express from 'express';
 const TARGET_SERVER = "team-1-reliability-server.mkrs.link"
 var app = express();
-// var body = '';
+const body = {a: 1};
 
 
 app.get('/*', async (req, res) => {
@@ -66,14 +66,16 @@ app.post('/*', async (req, res) => {
 
     upstreamResponse = await fetch(upstream, {
       method: 'post',
-      // body: JSON.stringify(body),
+      body: JSON.stringify(body),
       headers: {
         // 'Content-Type': 'application/json',
     
         'Authorization': req.header('Authorization')                          
     }
-    })
-    console.log(upstreamResponse)
+    });
+    const data = await upstreamResponse.json();
+
+    console.log(data);
 // Perform GET request against http://ec2-url/hospitals, with authentication credentials needed (as per the HOSP API documentation)
 
     if (upstreamResponse.ok) {
