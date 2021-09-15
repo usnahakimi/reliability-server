@@ -40,7 +40,7 @@ app.get('/*', async (req, res) => {
   "url": "http://localhost:3000/hospitals/1.json"
 }
 					*/
-      console.log(":: Successful!")
+      console.log(":: Successful! GET")
       return
     }
   }
@@ -91,7 +91,7 @@ app.post('/*', async (req, res) => {
   "url": "http://localhost:3000/hospitals/1.json"
 }
 					*/
-      console.log(":: Successful!")
+      console.log(":: Successful POST!")
       return
     }
   }
