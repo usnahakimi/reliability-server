@@ -63,7 +63,7 @@ app.post('/*', async (req, res) => {
 
     upstreamResponse = await fetch(upstream, {
       method: 'post',
-      // body: JSON.stringify(body),
+      body: JSON.stringify(res.body),
       headers: {
         // 'Content-Type': 'application/json',
     
