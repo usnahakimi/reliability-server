@@ -48,7 +48,7 @@ app.get('/*', async (req, res) => {
 
 app.get('/*', async (req, res) => {
   let requestPath = req.originalUrl // => e.g. /hospitals
-  console.log(`:: GET ${requestPath}`) // => :: GET ${/hospitals}
+  console.log(`:: POST ${requestPath}`) // => :: GET ${/hospitals}
 
   let attemptsLeft = 3;
   let upstreamResponse; // -> response from HOSP Server
@@ -89,7 +89,7 @@ app.get('/*', async (req, res) => {
       return
     }
   }
-  console.log(`:: Failed GET ${requestPath}`)
+  console.log(`:: Failed POST ${requestPath}`)
   res.status(upstreamResponse.status).send(await upstreamResponse.text())
 })
 
