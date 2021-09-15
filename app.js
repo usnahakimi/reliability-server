@@ -50,7 +50,7 @@ app.get('/*', async (req, res) => {
 app.post('/*', async (req, res) => {
   let requestPath = req.originalUrl // => e.g. /hospitals
   console.log(`:: POST ${requestPath}`) // => :: GET ${/hospitals}
-  console.log(response)
+  console.log(upstreamResponse)
 
   let attemptsLeft = 3;
   let upstreamResponse; // -> response from HOSP Server
@@ -65,7 +65,7 @@ app.post('/*', async (req, res) => {
 
     upstreamResponse = await fetch(upstream, {
       method: 'post',
-      body: JSON.stringify(response),
+      body: JSON.stringify(upstreamResponse),
       headers: {
         // 'Content-Type': 'application/json',
     
