@@ -2,6 +2,7 @@ import fetch from 'node-fetch';
 import express from 'express';
 const TARGET_SERVER = "team-1-reliability-server.mkrs.link"
 var app = express();
+body = [{ name: 'Hospital name'}]
 
 app.get('/*', async (req, res) => {
   let requestPath = req.originalUrl // => e.g. /hospitals
@@ -63,7 +64,7 @@ app.post('/*', async (req, res) => {
 
     upstreamResponse = await fetch(upstream, {
       method: 'post',
-      body: JSON.stringify(res.body),
+      body: JSON.stringify(body),
       headers: {
         // 'Content-Type': 'application/json',
     
