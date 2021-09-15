@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 import express from 'express';
-const TARGET_SERVER = "http://team-1-reliability-server.mkrs.link"
+const TARGET_SERVER = "team-1-reliability-server.mkrs.link"
 var app = express();
 
 app.get('/*', async (req, res) => {
