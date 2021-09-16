@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 import express from 'express';
 const TARGET_SERVER = "ec2-35-178-207-223.eu-west-2.compute.amazonaws.com"
 // const body = {a: 1};
-
+var app = express();
 
 app.get('/*', async (req, res) => {
   let requestPath = req.originalUrl // => e.g. /hospitals
