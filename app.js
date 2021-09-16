@@ -73,9 +73,6 @@ app.post('/*', async (req, res) => {
         'Authorization': req.header('Authorization')                          
     }
     });
-
-    console.log(upstreamResponse.status)
-    console.log(await upstreamResponse.text())
    
 // Perform GET request against http://ec2-url/hospitals, with authentication credentials needed (as per the HOSP API documentation)
 
@@ -97,7 +94,7 @@ app.post('/*', async (req, res) => {
     }
   }
   console.log(`:: Failed POST ${requestPath}`)
-  // res.status(upstreamResponse.status).send(await upstreamResponse.text())
+  res.status(upstreamResponse.status).send(await upstreamResponse.text())
 })
 
 app.listen('80', function () {
