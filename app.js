@@ -97,7 +97,7 @@ app.post('/*', async (req, res) => {
     }
   }
   console.log(`:: Failed POST ${requestPath}`)
-  res.status(upstreamResponse.status).send(await upstreamResponse.text())
+  // res.status(upstreamResponse.status).send(await upstreamResponse.text())
 })
 
 app.listen('80', function () {
